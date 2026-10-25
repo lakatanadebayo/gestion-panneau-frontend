@@ -16,7 +16,7 @@ export class DataService {
   private username = new BehaviorSubject<string>('test');
   username$ = this.username.asObservable();
 
-  private user = new BehaviorSubject<string>('test');
+  private user = new BehaviorSubject<User | null>(null);
   user$ = this.user.asObservable();
 
   setIsUpdateProcess(isUpdateProcess: boolean) {
@@ -31,7 +31,7 @@ export class DataService {
     this.username.next(username);
   }
 
-  setUser(user: User) {
-    this.username.next(user);
+  setUser(user: User | null) {
+    this.user.next(user);
   }
 }
