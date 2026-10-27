@@ -14,9 +14,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   localAuthStatus: boolean = false
 
   menuItems: MenuItem[] = [
-    { label: 'Utilisateur', route: '/app/home/user' },
-    { label: 'Ressource', route: '/app/home/ressource' },
-    { label: 'Recommandation', route: '/app/home/recommandation' }
+    { label: 'Utilisateur', route: '/app/home/user' }
   ]
 
   private destroy$ = new Subject<void>()
@@ -45,7 +43,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   signOut() {
     this.dataService.setAuthStatus(false)
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['app/home/recommandation'])
+      this.router.navigate(['app/home'])
     })
   }
 

@@ -7,7 +7,6 @@ import {HomeComponent} from "../../component/home/home.component";
   declarations: [],
   imports: [
     RouterModule.forChild([
-      // { path: 'find-ouvrier', loadChildren: () => import('./find-ouvrier/find-ouvrier-routing.module').then(m => m.FindOuvrierRoutingModule)},
       {path: '', component: HomeComponent}
     ])
   ],

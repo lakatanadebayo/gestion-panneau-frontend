@@ -8,20 +8,30 @@ import {NgxPaginationModule} from "ngx-pagination";
 import {AppComponent} from "./app.component";
 import {TopMenuModule} from "./module/top-menu/top-menu.module";
 import {HomeModule} from "./module/home/home.module";
+import {AuthenticationModule} from "./module/authentication/authentication.module";
+import {ToastrModule} from "ngx-toastr";
+import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 
 @NgModule({
+  declarations: [AppComponent],
   imports: [
-    AppComponent,
     BrowserModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
     NgxPaginationModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
+      timeOut: 3000,
+      closeButton: true,
+      progressBar: true,
+    }),
     TopMenuModule,
-    HomeModule
+    HomeModule,
+    AuthenticationModule,
   ],
-  providers: [],
+  providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
