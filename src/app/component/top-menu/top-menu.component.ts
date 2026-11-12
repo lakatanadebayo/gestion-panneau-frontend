@@ -3,6 +3,7 @@ import {DataService} from "../../service/data/data.service";
 import {Router} from "@angular/router";
 import {Subject, takeUntil} from "rxjs";
 import {MenuItem} from "../../entity/MenuItem";
+import {AuthenticationService} from "../../service/authentication/authentication.service";
 
 @Component({
   selector: 'app-top-menu',
@@ -19,7 +20,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>()
 
-  constructor(private dataService: DataService, private router: Router) {  }
+  constructor(private authenticationService: AuthenticationService, private dataService: DataService, private router: Router) {  }
 
   ngOnInit(): void {
     this.getAuthStatusFromDataService()
@@ -41,10 +42,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   }
 
   signOut() {
-    this.dataService.setAuthStatus(false)
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['app/home'])
-    })
+    this.authenticationService.logout();
   }
 
 }

@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {AuthenticationService} from "../../service/authentication/authentication.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../service/user/user.service";
 import {DataService} from "../../service/data/data.service";
 import {Router} from "@angular/router";
 import {LoginRequest} from "../../entity/LoginRequest";
 import {User} from "../../entity/User";
+import {AuthService} from "../../service/auth/auth.service";
 
 @Component({
   selector: 'app-authentication',
@@ -20,17 +20,18 @@ export class AuthenticationComponent implements OnInit {
   user: User
   isAuthenticated: boolean = true
 
-  constructor(private formBuilder: FormBuilder, private authenticationService: AuthenticationService,
-              private userService: UserService, private dataService: DataService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private userService: UserService,
+              private authService: AuthService, private dataService: DataService, private router: Router) { }
 
   ngOnInit(): void {
     this.authenticationForm = this.formBuilder.group({
-      username: [null],
-      password: [null]})
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]]
+    });
 
     this.dataService.authStatus$.subscribe(authStatus => {
-      this.isAuthenticated = authStatus
-    })
+      this.isAuthenticated = authStatus;
+    });
   }
 
   submitAuthenticationForm(){
@@ -38,24 +39,69 @@ export class AuthenticationComponent implements OnInit {
     this.login()
   }
 
-  login() {
-    const { username, password } = this.authenticationForm.value;
-    const loginRequest = new LoginRequest(username, password)
+  login(): void {
 
-    this.userService.login(loginRequest).subscribe({
-      next: userFromApi => {
-        if (!userFromApi || userFromApi.id === null) {
-          this.handleAuthFailure('Nom d\'utilisateur et/ou mot de passe incorrects')
-          return
-        }
+    if (this.authenticationForm.invalid) {
+      this.authenticationForm.markAllAsTouched();
+      return;
+    }
 
-        this.user = userFromApi
-        this.dataService.setAuthStatus(true)
-        this.dataService.setUser(this.user)
-        this.home()
+    const { username, password } =
+      this.authenticationForm.getRawValue();
+
+    console.log('Identifiants :', { username, password: '***' });
+
+    const loginRequest = new LoginRequest(
+      username.trim(),
+      password
+    );
+
+    this.authService.login(loginRequest).subscribe({
+
+      next: (response) => {
+
+        localStorage.setItem('token', response.token);
+
+        this.userService.login(loginRequest).subscribe({
+
+          next: (userFromApi) => {
+
+            if (!userFromApi || !userFromApi.id) {
+              this.handleAuthFailure(
+                'Utilisateur introuvable.'
+              );
+              return;
+            }
+
+            this.user = userFromApi;
+            this.dataService.setUser(userFromApi);
+            this.dataService.setAuthStatus(true);
+
+            this.home();
+          },
+
+          error: (error) => {
+            console.error('Erreur récupération utilisateur :', error);
+            this.handleAuthFailure(
+              'Impossible de récupérer les informations utilisateur.'
+            );
+          }
+
+        });
+
       },
-      error: error => console.error(error)
-    })
+
+      error: (error) => {
+
+        console.error('Erreur authentification :', error);
+
+        this.authenticationErrorMessage =
+          error.error?.message || 'Échec de connexion.';
+
+        this.dataService.setAuthStatus(false);
+      }
+
+    });
   }
 
   home() {

@@ -25,16 +25,25 @@
 
           <div class="input-group">
             <label>Nom d'utilisateur</label>
-            <input type="email" formControlName="username" placeholder="exemple@email.com"/>
+            <input type="text" formControlName="username"
+                   placeholder="exemple@email.com"
+                   autocomplete="username"/>
+            <small class="text-danger" *ngIf="authenticationForm.get('username')?.touched
+            && authenticationForm.get('username')?.invalid">Le nom d'utilisateur est obligatoire.
+            </small>
           </div>
 
           <div class="input-group">
             <label>Mot de passe</label>
-            <input type="password" formControlName="password" placeholder="********"/>
+            <input id="password"
+                   type="password"
+                   formControlName="password"
+                   placeholder="********"
+                   autocomplete="current-password"/>
           </div>
 
           <div class="options">
-            <label><input type="checkbox" />Se souvenir de moi</label>
+            <label><input type="checkbox"/>Se souvenir de moi</label>
             <a href="#">Mot de passe oublié ?</a>
           </div>
 

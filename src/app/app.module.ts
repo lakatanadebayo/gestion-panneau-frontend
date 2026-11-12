@@ -11,6 +11,8 @@ import {HomeModule} from "./module/home/home.module";
 import {AuthenticationModule} from "./module/authentication/authentication.module";
 import {ToastrModule} from "ngx-toastr";
 import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +33,13 @@ import {provideAnimationsAsync} from "@angular/platform-browser/animations/async
     HomeModule,
     AuthenticationModule,
   ],
-  providers: [provideAnimationsAsync()],
+  providers: [provideAnimationsAsync(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
