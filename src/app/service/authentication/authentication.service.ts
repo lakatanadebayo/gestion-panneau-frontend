@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {DataService} from "../data/data.service";
-import {Router} from "@angular/router";
+import {NavigationService} from "../navigation/navigation.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  constructor(private dataService: DataService, private router: Router) { }
+  constructor(private dataService: DataService, private navigationService: NavigationService) { }
 
   logout(): void {
 
@@ -22,7 +22,7 @@ export class AuthenticationService {
     this.dataService.setIsUpdateProcess(false);
 
     // 3. Rediriger vers la page de connexion
-    this.router.navigate(['app/authentication']);
+    this.navigationService.authentication();
 
     /*this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate(['app/home'])

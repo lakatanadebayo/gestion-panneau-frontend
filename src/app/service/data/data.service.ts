@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {User} from "../../entity/User";
+import {Role} from "../../entity/Role";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,9 @@ export class DataService {
   private user = new BehaviorSubject<User | null>(null);
   user$ = this.user.asObservable();
 
+  private userRoles = new BehaviorSubject<Role[]>([]);
+  userRoles$ = this.userRoles.asObservable();
+
   setIsUpdateProcess(isUpdateProcess: boolean) {
     this.isUpdateProcess.next(isUpdateProcess);
   }
@@ -33,5 +37,9 @@ export class DataService {
 
   setUser(user: User | null) {
     this.user.next(user);
+  }
+
+  setUserRoles(roles: Role[]) {
+    this.userRoles.next(roles);
   }
 }

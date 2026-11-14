@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../service/user/user.service";
 import {DataService} from "../../service/data/data.service";
-import {Router} from "@angular/router";
 import {LoginRequest} from "../../entity/LoginRequest";
 import {User} from "../../entity/User";
 import {AuthService} from "../../service/auth/auth.service";
+import {NavigationService} from "../../service/navigation/navigation.service";
 
 @Component({
   selector: 'app-authentication',
@@ -20,8 +20,8 @@ export class AuthenticationComponent implements OnInit {
   user: User
   isAuthenticated: boolean = true
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService,
-              private authService: AuthService, private dataService: DataService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private authService: AuthService,
+              private navigationService: NavigationService, private dataService: DataService) { }
 
   ngOnInit(): void {
     this.authenticationForm = this.formBuilder.group({
@@ -105,14 +105,14 @@ export class AuthenticationComponent implements OnInit {
   }
 
   home() {
-    this.router.navigate(['app/home'])
+    this.navigationService.home()
   }
 
   private handleAuthFailure(message: string) {
     this.authenticationErrorMessage = message
     this.dataService.setAuthStatus(false)
     this.dataService.setUser(null)
-    this.router.navigate(['app/authentication'])
+    this.navigationService.authentication()
   }
 
 }

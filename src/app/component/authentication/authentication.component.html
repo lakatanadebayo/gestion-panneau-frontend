@@ -25,21 +25,14 @@
 
           <div class="input-group">
             <label>Nom d'utilisateur</label>
-            <input type="text" formControlName="username"
-                   placeholder="exemple@email.com"
-                   autocomplete="username"/>
-            <small class="text-danger" *ngIf="authenticationForm.get('username')?.touched
-            && authenticationForm.get('username')?.invalid">Le nom d'utilisateur est obligatoire.
-            </small>
+            <input type="text" formControlName="username" placeholder="exemple@email.com" autocomplete="username"/>
+            <small class="text-danger" *ngIf="authenticationForm.get('username')?.touched && authenticationForm.get('username')?.invalid">Le nom d'utilisateur est obligatoire.</small>
           </div>
 
           <div class="input-group">
             <label>Mot de passe</label>
-            <input id="password"
-                   type="password"
-                   formControlName="password"
-                   placeholder="********"
-                   autocomplete="current-password"/>
+            <input id="password" type="password" formControlName="password" placeholder="********" autocomplete="current-password"/>
+            <small class="text-danger" *ngIf="authenticationForm.get('password')?.touched && authenticationForm.get('password')?.invalid">Le mot de passe est obligatoire.</small>
           </div>
 
           <div class="options">
@@ -48,13 +41,13 @@
           </div>
 
           <div class="col-12 d-flex justify-content-between">
-            <button type="submit" [disabled]="authenticationForm.invalid">Se connecter</button>
+            <button type="submit" class="btn btn-primary" [disabled]="authenticationForm.invalid">Se connecter</button>
             <button type="button" (click)="home()" class="mx-2">Retour</button>
           </div>
 
         </form>
 
-        <div class="register-link">Vous n'avez pas de compte ? <a href="#">Créer un compte</a></div>
+        <div class="register-link">Vous n'avez pas de compte ? <a href="/app/inscription">Créer un compte</a></div>
       </div>
     </div>
 

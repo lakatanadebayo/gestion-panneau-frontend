@@ -13,6 +13,8 @@ import {ToastrModule} from "ngx-toastr";
 import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
+import {UserModule} from "./module/admin-portal/user/user.module";
+import {InscriptionModule} from "./module/inscription/inscription.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +34,8 @@ import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
     TopMenuModule,
     HomeModule,
     AuthenticationModule,
+    UserModule,
+    InscriptionModule
   ],
   providers: [provideAnimationsAsync(),
     {

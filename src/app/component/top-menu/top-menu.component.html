@@ -2,10 +2,7 @@
   <div class="container">
 
     <!-- Logo -->
-    <a class="navbar-brand fw-bold" routerLink="/">
-      <i class="fa fa-graduation-cap me-2"></i>
-      DevLearn
-    </a>
+    <a class="navbar-brand fw-bold" routerLink="/">Gestion des panneaux publicitaires</a>
 
     <!-- Bouton mobile -->
     <button class="navbar-toggler"
@@ -19,25 +16,10 @@
     <div class="collapse navbar-collapse" id="navbarContent">
 
       <ul class="navbar-nav me-auto">
-
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/">
-            <i class="fa fa-home me-1"></i> Accueil
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/app/home/ressource">
-            <i class="fa fa-book me-1"></i> Cours
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/app/home/user">
-            <i class="fa fa-user me-1"></i>Etudiants
-          </a>
-        </li>
-
+        <li class="nav-item"><a class="nav-link" routerLink="/">Accueil</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/app/admin/user">Utilisateur</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/app/owner/panneau">Panneau</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/app/client/location">Location</a></li>
       </ul>
 
       <!-- Authentification -->

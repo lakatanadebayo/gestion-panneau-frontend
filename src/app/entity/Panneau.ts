@@ -5,7 +5,6 @@ export class Panneau {
   constructor(
     public id: any,
     public emplacement: string,
-    public locationPanneaux: LocationPanneau[],
     public proprietaire: Proprietaire,
     public dateCreation: string,
     public codeUtilisateurCreation: string,

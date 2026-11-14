@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Global} from "../../../global";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {User} from "../../entity/User";
 import {LoginRequest} from "../../entity/LoginRequest";
+import {FindByUsername} from "../../entity/FindByUsername";
+import {UserDto} from "../../entity/UserDto";
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,11 @@ export class UserService {
 
   constructor(private httpClient : HttpClient) { }
 
-  save(user: User): Observable<any> {
+  save(user: UserDto): Observable<any> {
     return this.httpClient.post(this.baseUrl+"/user/save", user)
   }
 
-  update(id: number, user: User): Observable<any> {
+  update(id: number, user: UserDto): Observable<any> {
     return this.httpClient.put(this.baseUrl+"/user/update/"+id, user)
   }
 
@@ -32,5 +33,9 @@ export class UserService {
 
   login(loginRequest: LoginRequest): Observable<any> {
     return this.httpClient.post(this.baseUrl+"/user/authentication", loginRequest)
+  }
+
+  findByUsername(findByUsername: FindByUsername): Observable<any> {
+    return this.httpClient.post(this.baseUrl+"/user/check-username", findByUsername)
   }
 }

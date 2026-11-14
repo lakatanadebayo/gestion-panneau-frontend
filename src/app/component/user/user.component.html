@@ -1,0 +1,247 @@
+<div class="container">
+
+  <!-- FORMULAIRE UTILISATEUR -->
+  <div class="marge-haut">
+    <div class="card shadow-lg">
+      <div class="card-body">
+
+        <form [formGroup]="userForm" (ngSubmit)="submitUserForm()">
+
+          <div class="row g-3">
+
+            <!-- Titre -->
+            <div class="col-12 col-md-4">
+              <label for="titre" class="form-label">Titre *</label>
+              <select id="titre" class="form-select" formControlName="titre"
+                      [class.is-invalid]="isInvalid('titre')">
+                <option value="">Sélectionner</option>
+                <option value="Madame">Madame</option>
+                <option value="Monsieur">Monsieur</option>
+                <option value="Mademoiselle">Mademoiselle</option>
+              </select>
+              <small class="text-danger" *ngIf="hasError('titre', 'required')">Le titre est obligatoire.</small>
+            </div>
+
+            <!-- Nom -->
+            <div class="col-12 col-md-4">
+              <label for="nomUser" class="form-label">Nom *</label>
+              <input id="nomUser" class="form-control" formControlName="nomUser" [class.is-invalid]="isInvalid('nomUser')">
+              <small class="text-danger" *ngIf="hasError('nomUser', 'required')">Le nom est obligatoire.</small>
+            </div>
+
+            <!-- Prénom -->
+            <div class="col-12 col-md-4">
+              <label for="prenomUser" class="form-label">Prénom(s) *</label>
+              <input id="prenomUser" class="form-control" formControlName="prenomUser" [class.is-invalid]="isInvalid('prenomUser')">
+              <small class="text-danger" *ngIf="hasError('prenomUser', 'required')">Le prénom est obligatoire.</small>
+            </div>
+
+            <!-- Date de naissance -->
+            <div class="col-12 col-md-4">
+              <label for="dateNaissance" class="form-label">Date de naissance *</label>
+              <input id="dateNaissance" type="text" placeholder="aaaa-mm-jj" class="form-control" formControlName="dateNaissance" [class.is-invalid]="isInvalid('dateNaissance')">
+
+              <small class="text-danger" *ngIf="hasError('dateNaissance', 'required')">La date de naissance est obligatoire.</small>
+              <small class="text-danger" *ngIf="hasError('dateNaissance', 'invalidDateFormat')">{{ userForm.get('dateNaissance')?.getError('invalidDateFormat') }}</small>
+              <small class="text-danger" *ngIf="hasError('dateNaissance', 'invalidDate')">{{ userForm.get('dateNaissance')?.getError('invalidDate') }}</small>
+            </div>
+
+            <!-- Adresse -->
+            <div class="col-12 col-md-4">
+              <label for="adresse" class="form-label">Adresse *</label>
+              <input id="adresse" class="form-control" formControlName="adresse" [class.is-invalid]="isInvalid('adresse')">
+              <small class="text-danger" *ngIf="hasError('adresse', 'required')">L'adresse est obligatoire.</small>
+            </div>
+
+            <!-- Pays -->
+            <div class="col-12 col-md-4">
+              <label for="idPays" class="form-label">Pays *</label>
+              <select id="idPays" class="form-select" formControlName="idPays" [class.is-invalid]="isInvalid('idPays')">
+                <option value="">Sélectionner un pays</option>
+                <option *ngFor="let p of pays" [ngValue]="p.id">
+                  {{ p.nom }}
+                </option>
+              </select>
+              <small class="text-danger" *ngIf="hasError('idPays', 'required')">Le pays est obligatoire.</small>
+            </div>
+
+            <!-- Ville -->
+            <div class="col-12 col-md-4">
+              <label for="ville" class="form-label">Ville *</label>
+              <input id="ville" class="form-control" formControlName="ville" [class.is-invalid]="isInvalid('ville')">
+              <small class="text-danger" *ngIf="hasError('ville', 'required')">La ville est obligatoire.</small>
+            </div>
+
+            <!-- Code postal -->
+            <div class="col-12 col-md-4">
+              <label for="codePostal" class="form-label">Code postal *</label>
+              <input id="codePostal" class="form-control" formControlName="codePostal" [class.is-invalid]="isInvalid('codePostal')">
+              <small class="text-danger" *ngIf="hasError('codePostal', 'required')">Le code postal est obligatoire.</small>
+            </div>
+
+            <!-- Email -->
+            <div class="col-12 col-md-4">
+              <label for="email" class="form-label">Email *</label>
+              <input id="email" type="email" class="form-control" formControlName="email" [class.is-invalid]="isInvalid('email')">
+              <small class="text-danger" *ngIf="hasError('email', 'required')">L'email est obligatoire.</small>
+              <small class="text-danger" *ngIf="hasError('email', 'pattern')">Adresse email incorrecte.</small>
+            </div>
+
+            <!-- Téléphone -->
+            <div class="col-12 col-md-4">
+              <label for="telephone" class="form-label">Téléphone *</label>
+              <input id="telephone" class="form-control" formControlName="telephone" [class.is-invalid]="isInvalid('telephone')">
+              <small class="text-danger" *ngIf="hasError('telephone', 'required')">Le téléphone est obligatoire.</small>
+              <small class="text-danger" *ngIf="hasError('telephone', 'frenchPhone')">Format français invalide.</small>
+            </div>
+
+            <!-- Photo -->
+            <div class="col-12 col-md-4">
+              <label for="photo" class="form-label">Photo</label>
+              <input id="photo" class="form-control" formControlName="photo">
+            </div>
+
+            <!-- Username -->
+            <div class="col-12 col-md-4">
+              <label for="username" class="form-label">Username *</label>
+              <input id="username" class="form-control" formControlName="username"
+                     [class.is-invalid]="isInvalid('username')">
+              <small class="text-danger" *ngIf="hasError('username', 'required')">Le nom d'utilisateur est obligatoire.</small>
+              <small class="text-danger" *ngIf="hasError('username', 'usernameExiste')">{{ userForm.get('username')?.getError('usernameExiste') }}</small>
+            </div>
+
+            <!-- Password -->
+            <div class="col-12 col-md-4">
+              <label for="password" class="form-label">Mot de passe *</label>
+              <input id="password" type="password" class="form-control" formControlName="password" [class.is-invalid]="isInvalid('password')">
+              <small class="text-danger" *ngIf="hasError('password', 'required')">Le mot de passe est obligatoire.</small>
+            </div>
+
+            <!-- Confirmation -->
+            <div class="col-12 col-md-4">
+              <label for="confirmPassword" class="form-label">Confirmation *</label>
+              <input id="confirmPassword" type="password" class="form-control" formControlName="confirmPassword" [class.is-invalid]="isInvalid('confirmPassword')">
+              <small class="text-danger" *ngIf="hasError('confirmPassword', 'required')">La confirmation est obligatoire.</small>
+              <small class="text-danger" *ngIf="passwordMismatch">Les deux mots de passe sont différents.</small>
+            </div>
+
+          </div>
+
+          <div class="text-danger mt-3"><small>Les champs avec * sont obligatoires.</small></div>
+
+          <div class="mt-3">
+            <button type="submit" class="btn btn-outline-success" [disabled]="userForm.invalid">Enregistrer</button>
+            <button type="button" class="btn btn-outline-danger ms-3" (click)="home()">Accueil</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECHERCHE -->
+  <div class="mt-5">
+    <div class="mb-3 col-12 col-md-6 col-lg-4">
+      <input type="text" class="form-control"
+             placeholder="Rechercher un utilisateur..."
+             [(ngModel)]="searchTerm">
+    </div>
+
+    <!-- TABLEAU -->
+    <div class="table-responsive shadow-lg p-3 rounded-2">
+      <table class="table table-bordered table-striped align-middle">
+
+        <thead>
+        <tr>
+          <th>N°</th>
+          <th>Titre</th>
+          <th (click)="sortBy('nom')" role="button">Nom & Prénom</th>
+          <th>Date naissance</th>
+          <th>Adresse</th>
+          <th>Pays</th>
+          <th>Ville</th>
+          <th>Code postal</th>
+          <th>Email</th>
+          <th>Téléphone</th>
+          <th>Photo</th>
+          <th>Username</th>
+          <th>Statut</th>
+          <th>Rôles</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let u of users | userFilter:searchTerm |
+          paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: count }">
+
+          <td>{{ u.idUser }}</td>
+          <td>{{ u.titre }}</td>
+          <td>{{ u.nom }} {{ u.prenom }}</td>
+          <td>{{ u.dateNaissance }}</td>
+          <td>{{ u.adresse }}</td>
+          <td>{{ u.pays?.nom }}</td>
+          <td>{{ u.ville }}</td>
+          <td>{{ u.codePostal }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.telephone }}</td>
+          <td>{{ u.photo }}</td>
+          <td>{{ u.username }}</td>
+          <td>{{ u.state }}</td>
+
+          <td>
+            <span *ngFor="let r of u.roles; let last = last">
+              {{ r.libelleRole }}{{ last ? '' : ', ' }}
+            </span>
+          </td>
+
+          <td>
+            <div class="d-flex gap-2">
+
+              <button class="btn btn-primary btn-sm"
+                      *ngIf="hasRoleService.hasAnyRole(['ADMIN'], userRole)"
+                      (click)="updateUser(u.idUser)">
+                <i class="fa fa-edit"></i>
+              </button>
+
+              <button class="btn btn-danger btn-sm"
+                      *ngIf="hasRoleService.hasAnyRole(['SUPER-ADMIN'], userRole)"
+                      (click)="desactiverUser(u.idUser, u)">
+                <i class="fa fa-trash"></i>
+              </button>
+
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox"
+                       role="switch"
+                       [id]="'userSwitch' + u.idUser"
+                       [checked]="u.state === 'Active'"
+                       *ngIf="hasRoleService.hasAnyRole(['ADMIN'], userRole)"
+                       (change)="changerStatutUtilisateur(
+                         u.idUser,
+                         $any($event.target).checked ? 'Active' : 'Inactive'
+                       )">
+
+                <label class="form-check-label" [for]="'userSwitch' + u.idUser">
+                  {{ u.state === 'Active' ? 'Activé' : 'Désactivé' }}
+                </label>
+              </div>
+
+            </div>
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="text-center mt-3">
+        <pagination-controls
+          previousLabel="Précédent"
+          nextLabel="Suivant"
+          [responsive]="true"
+          (pageChange)="handlePageChange($event)">
+        </pagination-controls>
+      </div>
+
+    </div>
+  </div>
+</div>
