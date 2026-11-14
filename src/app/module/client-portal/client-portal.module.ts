@@ -5,6 +5,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgxPaginationModule} from "ngx-pagination";
 import {ClientPortalComponent} from "../../component/client-portal/client-portal.component";
 import {ClientPortalRoutingModule} from "./client-portal-routing.module";
+import {FooterModule} from "../footer/footer.module";
+import {TopMenuModule} from "../top-menu/top-menu.module";
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import {ClientPortalRoutingModule} from "./client-portal-routing.module";
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    ClientPortalRoutingModule
+    ClientPortalRoutingModule,
+    FooterModule,
+    TopMenuModule
   ]
 })
 export class ClientPortalModule { }

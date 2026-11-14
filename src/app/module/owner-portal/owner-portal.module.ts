@@ -5,6 +5,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgxPaginationModule} from "ngx-pagination";
 import {OwnerPortalComponent} from "../../component/owner-portal/owner-portal.component";
 import {OwnerPortalRoutingModule} from "./owner-portal-routing.module";
+import {FooterModule} from "../footer/footer.module";
+import {TopMenuModule} from "../top-menu/top-menu.module";
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import {OwnerPortalRoutingModule} from "./owner-portal-routing.module";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    OwnerPortalRoutingModule
+    OwnerPortalRoutingModule,
+    FooterModule,
+    TopMenuModule
   ]
 })
 export class OwnerPortalModule { }

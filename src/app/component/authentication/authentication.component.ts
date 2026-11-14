@@ -4,8 +4,8 @@ import {UserService} from "../../service/user/user.service";
 import {DataService} from "../../service/data/data.service";
 import {LoginRequest} from "../../entity/LoginRequest";
 import {User} from "../../entity/User";
-import {AuthService} from "../../service/auth/auth.service";
 import {NavigationService} from "../../service/navigation/navigation.service";
+import {AuthenticationService} from "../../service/authentication/authentication.service";
 
 @Component({
   selector: 'app-authentication',
@@ -20,7 +20,7 @@ export class AuthenticationComponent implements OnInit {
   user: User
   isAuthenticated: boolean = true
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private authService: AuthService,
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private authenticationService: AuthenticationService,
               private navigationService: NavigationService, private dataService: DataService) { }
 
   ngOnInit(): void {
@@ -56,7 +56,7 @@ export class AuthenticationComponent implements OnInit {
       password
     );
 
-    this.authService.login(loginRequest).subscribe({
+    this.authenticationService.login(loginRequest).subscribe({
 
       next: (response) => {
 
