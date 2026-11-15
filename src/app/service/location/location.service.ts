@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Global} from "../../../global";
 import {HttpClient} from "@angular/common/http";
-import {Location} from "../../entity/Location";
 import {Observable} from "rxjs";
+import {LocationDto} from "../../entity/LocationDto";
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +13,11 @@ export class LocationService {
 
   constructor(private httpClient : HttpClient) { }
 
-  save(location: Location): Observable<any> {
+  save(location: LocationDto): Observable<any> {
     return this.httpClient.post(this.baseUrl+"/location/save", location)
   }
 
-  update(id: number, location: Location): Observable<any> {
+  update(id: any, location: LocationDto): Observable<any> {
     return this.httpClient.put(this.baseUrl+"/location/update/"+id, location)
   }
 

@@ -7,7 +7,7 @@ import {ClientPortalComponent} from "../../component/client-portal/client-portal
   declarations: [],
   imports: [
     RouterModule.forChild([
-      { path: 'location', loadChildren: () => import('./location/location-routing.module').then(m => m.LocationRoutingModule)},
+      { path: 'location', loadChildren: () => import('./location/location.module').then(m => m.LocationModule)},
       {path: '', component: ClientPortalComponent}
     ])
   ],

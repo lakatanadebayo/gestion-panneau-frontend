@@ -5,6 +5,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgxPaginationModule} from "ngx-pagination";
 import {LocationComponent} from "../../../component/location/location.component";
 import {LocationRoutingModule} from "./location-routing.module";
+import {UserModule} from "../../admin-portal/user/user.module";
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {LocationRoutingModule} from "./location-routing.module";
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    LocationRoutingModule
+    LocationRoutingModule,
+    UserModule
   ]
 })
 export class LocationModule { }

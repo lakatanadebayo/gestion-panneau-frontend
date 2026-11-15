@@ -16,6 +16,14 @@ export class NavigationService {
     this.router.navigate(['app/admin/user'])
   }
 
+  getUserById(idUser: any) {
+    this.router.navigate(['app/admin/user/'+idUser])
+  }
+
+  getIdUserFromRequestParam() {
+    this.activatedRoute.snapshot.params['idUser']
+  }
+
   inscription() {
     this.router.navigate(['app/inscription'])
   }
@@ -30,5 +38,13 @@ export class NavigationService {
 
   getIdPanneauFromRequestParam() {
     this.activatedRoute.snapshot.params['idPanneau']
+  }
+
+  getLocationForm() {
+    this.router.navigate(['app/client/location'])
+  }
+
+  getIdLocationFromRequestParam() {
+    this.activatedRoute.snapshot.params['idLocation']
   }
 }
