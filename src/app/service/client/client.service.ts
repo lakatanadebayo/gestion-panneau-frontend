@@ -3,6 +3,7 @@ import {Global} from "../../../global";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Client} from "../../entity/Client";
+import {User} from "../../entity/User";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class ClientService {
     return this.httpClient.post(this.baseUrl+"/client/save", client)
   }
 
-  update(id: number, client: Client): Observable<any> {
+  update(id: any, client: Client): Observable<any> {
     return this.httpClient.put(this.baseUrl+"/client/update/"+id, client)
   }
 
@@ -25,7 +26,11 @@ export class ClientService {
     return this.httpClient.get(this.baseUrl+"/client/all")
   }
 
-  getById(id: number): Observable<any> {
+  getById(id: any): Observable<any> {
     return this.httpClient.get(this.baseUrl+"/panneau/"+id)
+  }
+
+  getByUser(user: User): Observable<any> {
+    return this.httpClient.post(this.baseUrl+"/client/findbyuser", user)
   }
 }

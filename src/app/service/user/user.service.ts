@@ -19,7 +19,7 @@ export class UserService {
     return this.httpClient.post(this.baseUrl+"/user/save", user)
   }
 
-  update(id: number, user: UserDto): Observable<any> {
+  update(id: any, user: UserDto): Observable<any> {
     return this.httpClient.put(this.baseUrl+"/user/update/"+id, user)
   }
 
@@ -27,7 +27,7 @@ export class UserService {
     return this.httpClient.get(this.baseUrl+"/user/all")
   }
 
-  getById(id: number): Observable<any> {
+  getById(id: any): Observable<any> {
     return this.httpClient.get(this.baseUrl+"/user/"+id)
   }
 

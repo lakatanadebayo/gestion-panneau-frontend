@@ -17,7 +17,7 @@ export class PaysService {
     return this.httpClient.post(this.baseUrl+"/pays/save", pays)
   }
 
-  update(id: number, pays: Pays): Observable<any> {
+  update(id: any, pays: Pays): Observable<any> {
     return this.httpClient.put(this.baseUrl+"/pays/update/"+id, pays)
   }
 
@@ -25,7 +25,7 @@ export class PaysService {
     return this.httpClient.get(this.baseUrl+"/pays/all")
   }
 
-  getById(id: number): Observable<any> {
+  getById(id: any): Observable<any> {
     return this.httpClient.get(this.baseUrl+"/pays/"+id)
   }
 }

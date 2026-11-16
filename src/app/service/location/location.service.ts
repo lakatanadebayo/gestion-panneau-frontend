@@ -25,7 +25,7 @@ export class LocationService {
     return this.httpClient.get(this.baseUrl+"/location/all")
   }
 
-  getById(id: number): Observable<any> {
+  getById(id: any): Observable<any> {
     return this.httpClient.get(this.baseUrl+"/location/"+id)
   }
 }

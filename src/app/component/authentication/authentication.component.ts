@@ -6,6 +6,11 @@ import {LoginRequest} from "../../entity/LoginRequest";
 import {User} from "../../entity/User";
 import {NavigationService} from "../../service/navigation/navigation.service";
 import {AuthenticationService} from "../../service/authentication/authentication.service";
+import {ClientService} from "../../service/client/client.service";
+import {ProprietaireService} from "../../service/proprietaire/proprietaire.service";
+import {Client} from "../../entity/Client";
+import {Proprietaire} from "../../entity/Proprietaire";
+import {forkJoin, switchMap, tap, throwError} from "rxjs";
 
 @Component({
   selector: 'app-authentication',
@@ -18,9 +23,12 @@ export class AuthenticationComponent implements OnInit {
   authenticationForm: FormGroup
   submitted= false
   user: User
+  client: Client
+  proprietaire: Proprietaire
   isAuthenticated: boolean = true
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private authenticationService: AuthenticationService,
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private clientService: ClientService,
+              private proprietaireService: ProprietaireService, private authenticationService: AuthenticationService,
               private navigationService: NavigationService, private dataService: DataService) { }
 
   ngOnInit(): void {
@@ -46,59 +54,61 @@ export class AuthenticationComponent implements OnInit {
       return;
     }
 
-    const { username, password } =
-      this.authenticationForm.getRawValue();
+    const { username, password } = this.authenticationForm.getRawValue();
 
-    console.log('Identifiants :', { username, password: '***' });
+    const loginRequest = new LoginRequest(username.trim(), password);
 
-    const loginRequest = new LoginRequest(
-      username.trim(),
-      password
-    );
+    this.authenticationService.login(loginRequest).pipe(
 
-    this.authenticationService.login(loginRequest).subscribe({
-
-      next: (response) => {
-
+      // Récupération du token
+      tap(response => {
         localStorage.setItem('token', response.token);
+      }),
 
-        this.userService.login(loginRequest).subscribe({
+      // Récupération des informations utilisateur
+      switchMap(() => this.userService.login(loginRequest)),
 
-          next: (userFromApi) => {
+      // Vérification de l'utilisateur
+      switchMap(user => {
 
-            if (!userFromApi || !userFromApi.id) {
-              this.handleAuthFailure(
-                'Utilisateur introuvable.'
-              );
-              return;
-            }
+        if (!user?.id) {
+          return throwError(() => new Error('Utilisateur introuvable.'));
+        }
 
-            this.user = userFromApi;
-            this.dataService.setUser(userFromApi);
-            this.dataService.setAuthStatus(true);
+        this.user = user;
+        this.dataService.setUser(user);
 
-            this.home();
-          },
-
-          error: (error) => {
-            console.error('Erreur récupération utilisateur :', error);
-            this.handleAuthFailure(
-              'Impossible de récupérer les informations utilisateur.'
-            );
-          }
-
+        // Récupération simultanée du client et du propriétaire
+        return forkJoin({
+          client: this.clientService.getByUser(user),
+          proprietaire: this.proprietaireService.getByUser(user)
         });
+      })
 
+    ).subscribe({
+
+      next: ({ client, proprietaire }) => {
+
+        this.client = client;
+        this.proprietaire = proprietaire;
+
+        this.dataService.setClient(client);
+        this.dataService.setProprietaire(proprietaire);
+
+        this.dataService.setAuthStatus(true);
+
+        this.home();
       },
 
-      error: (error) => {
+      error: error => {
 
         console.error('Erreur authentification :', error);
 
-        this.authenticationErrorMessage =
-          error.error?.message || 'Échec de connexion.';
-
-        this.dataService.setAuthStatus(false);
+        this.handleAuthFailure(
+          error.error?.message ||
+          error.message ||
+          'Échec de connexion.'
+        );
       }
 
     });
@@ -108,11 +118,14 @@ export class AuthenticationComponent implements OnInit {
     this.navigationService.home()
   }
 
-  private handleAuthFailure(message: string) {
-    this.authenticationErrorMessage = message
-    this.dataService.setAuthStatus(false)
-    this.dataService.setUser(null)
-    this.navigationService.authentication()
+  private handleAuthFailure(message: string): void {
+    localStorage.removeItem('token');
+    this.authenticationErrorMessage = message;
+    this.dataService.setUser(null);
+    this.dataService.setClient(null);
+    this.dataService.setProprietaire(null);
+    this.dataService.setAuthStatus(false);
+    this.navigationService.authentication();
   }
 
 }
