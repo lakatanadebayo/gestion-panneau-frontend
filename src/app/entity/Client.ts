@@ -10,6 +10,7 @@ export class Client {
     public codeUtilisateurCreation: string,
     public dateModification: string,
     public codeUtilisateurModification: string,
+    public state: string,
     public isDeleted?: boolean
   ) {
   }

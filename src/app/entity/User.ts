@@ -23,6 +23,8 @@ export class User {
     public codeUtilisateurCreation: string,
     public dateModification: string,
     public codeUtilisateurModification: string,
+    public ajoutCompteClient?: boolean,
+    public ajouteCompteProprietaire?: boolean,
     public isDeleted?: boolean
   ) {
   }

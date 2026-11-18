@@ -61,7 +61,9 @@ export class InscriptionComponent {
       username: ['', [Validators.required], [uniqueUsernameValidator(this.userService)]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
-      photo: ['']
+      photo: [''],
+      ajoutCompteClient: [false],
+      ajouteCompteProprietaire: [false]
     })
 
     this.userForm.setValidators(passwordMatchingValidator)
@@ -72,7 +74,8 @@ export class InscriptionComponent {
     const userObject = new UserDto(null, userFormValues['titre'], userFormValues['nomUser'],
       userFormValues['prenomUser'], userFormValues['dateNaissance'], userFormValues['adresse'], userFormValues['idPays'],
       userFormValues['ville'], userFormValues['codePostal'], userFormValues['email'], userFormValues['telephone'],
-      userFormValues['username'], userFormValues['password'], userFormValues['photo'], 'Inactive', [], false)
+      userFormValues['username'], userFormValues['password'], userFormValues['photo'], 'Inactive', [],
+      userFormValues['ajoutCompteClient'], userFormValues['ajouteCompteProprietaire'])
 
     this.userService.save(userObject).subscribe({
       next:userFromApi => {
