@@ -1,47 +1,5 @@
 <div class="container">
 
-  <!-- FORMULAIRE PANNEAU -->
-  <div class="marge-haut">
-    <div class="card shadow-lg">
-      <div class="card-body">
-
-        <form [formGroup]="panneauForm" (ngSubmit)="submitPanneauForm()">
-
-          <div class="row g-3">
-
-            <!-- Emplacement -->
-            <div class="col-12 col-md-4">
-              <label for="emplacement" class="form-label">Emplacement *</label>
-              <input id="emplacement" class="form-control" formControlName="emplacement" [class.is-invalid]="isInvalid('emplacement')">
-              <small class="text-danger" *ngIf="hasError('emplacement', 'required')">L'emplacement du panneau est obligatoire.</small>
-            </div>
-
-            <!-- Proprietaire -->
-            <div class="col-12 col-md-4">
-              <label for="idProprietaire" class="form-label">Proprietaire *</label>
-              <select id="idProprietaire" class="form-select" formControlName="idProprietaire" [class.is-invalid]="isInvalid('idProprietaire')">
-                <option value="">Sélectionner un propriétaire</option>
-                <option *ngFor="let p of proprietaires" [ngValue]="p.id">
-                  {{ p.user.nom }} {{ p.user.prenom }}
-                </option>
-              </select>
-              <small class="text-danger" *ngIf="hasError('idProprietaire', 'required')">Le propriétaire du panneau est obligatoire.</small>
-            </div>
-
-          </div>
-
-          <div class="text-danger mt-3"><small>Les champs avec * sont obligatoires.</small></div>
-
-          <div class="mt-3">
-            <button type="submit" class="btn btn-outline-success" [disabled]="panneauForm.invalid">Enregistrer</button>
-            <button type="button" class="btn btn-outline-danger ms-3" (click)="home()">Accueil</button>
-          </div>
-
-        </form>
-      </div>
-    </div>
-  </div>
-
   <!-- RECHERCHE -->
   <div class="mt-5">
     <div class="mb-3 col-12 col-md-6 col-lg-4">

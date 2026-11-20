@@ -194,4 +194,17 @@ export class LocationComponent {
       !!this.locationPanneaux.at(index).get(controlName)?.hasError(errorName);
   }
 
+  /**
+   * Calcule le montant total de la location.
+   */
+  getMontantTotal(): number {
+    return this.locationPanneaux.controls.reduce(
+      (total, panneauForm) => {
+        const montant = Number(panneauForm.get('montantLigne')?.value) || 0;
+        return total + montant;
+      },
+      0
+    );
+  }
+
 }

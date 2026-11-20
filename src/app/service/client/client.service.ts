@@ -3,7 +3,7 @@ import {Global} from "../../../global";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Client} from "../../entity/Client";
-import {User} from "../../entity/User";
+import {UserId} from "../../entity/UserId";
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +30,7 @@ export class ClientService {
     return this.httpClient.get(this.baseUrl+"/panneau/"+id)
   }
 
-  getByUser(user: User): Observable<any> {
-    return this.httpClient.post(this.baseUrl+"/client/findbyuser", user)
+  getByUserId(userId: UserId): Observable<any> {
+    return this.httpClient.post(this.baseUrl+"/client/findbyuser", userId)
   }
 }

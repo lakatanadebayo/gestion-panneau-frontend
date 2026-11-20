@@ -1,10 +1,11 @@
+<!--
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
   <div class="container">
 
-    <!-- Logo -->
+    &lt;!&ndash; Logo &ndash;&gt;
     <a class="navbar-brand fw-bold" routerLink="/">Gestion des panneaux publicitaires</a>
 
-    <!-- Bouton mobile -->
+    &lt;!&ndash; Bouton mobile &ndash;&gt;
     <button class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
@@ -12,7 +13,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Navigation -->
+    &lt;!&ndash; Navigation &ndash;&gt;
     <div class="collapse navbar-collapse" id="navbarContent">
 
       <ul class="navbar-nav me-auto">
@@ -22,7 +23,7 @@
         <li class="nav-item"><a class="nav-link" routerLink="/app/client/location">Location</a></li>
       </ul>
 
-      <!-- Authentification -->
+      &lt;!&ndash; Authentification &ndash;&gt;
       <div class="d-flex">
         <button
           type="button"
@@ -39,6 +40,133 @@
           (click)="signOut()">
           <i class="fa fa-sign-out me-1"></i> Déconnexion
         </button>
+      </div>
+
+    </div>
+  </div>
+</nav>
+-->
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container">
+
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold" routerLink="/">
+      Gestion des panneaux publicitaires
+    </a>
+
+    <!-- Bouton mobile -->
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarContent"
+            aria-controls="navbarContent"
+            aria-expanded="false"
+            aria-label="Afficher la navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navigation -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+
+      <ul class="navbar-nav me-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">Accueil</a>
+        </li>
+
+        <!-- Sous-menu Utilisateur -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"
+             href="#"
+             id="userDropdown"
+             role="button"
+             data-bs-toggle="dropdown"
+             aria-expanded="false">
+            Utilisateur
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="userDropdown">
+
+            <li>
+              <a class="dropdown-item"
+                 routerLink="/app/admin/user">
+                <i class="fa fa-list me-2"></i>
+                Liste des utilisateurs
+              </a>
+            </li>
+
+            <li>
+              <a class="dropdown-item"
+                 routerLink="/app/inscription">
+                <i class="fa fa-user-plus me-2"></i>
+                Nouvel utilisateur
+              </a>
+            </li>
+
+          </ul>
+        </li>
+
+        <!-- Sous-menu Panneau -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"
+             href="#"
+             id="panneauDropdown"
+             role="button"
+             data-bs-toggle="dropdown"
+             aria-expanded="false">
+            Panneau
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="panneauDropdown">
+
+            <li>
+              <a class="dropdown-item"
+                 routerLink="/app/owner/panneau">
+                <i class="fa fa-list me-2"></i>
+                Liste des panneaux
+              </a>
+            </li>
+
+            <li>
+              <a class="dropdown-item"
+                 routerLink="/app/owner/panneau-new">
+                <i class="fa fa-user-plus me-2"></i>
+                Nouveau panneau
+              </a>
+            </li>
+
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/app/client/location">
+            Location
+          </a>
+        </li>
+
+      </ul>
+
+      <!-- Authentification -->
+      <div class="d-flex">
+
+        <button type="button"
+                class="btn btn-outline-success"
+                [hidden]="localAuthStatus"
+                (click)="signIn()">
+          <i class="fa fa-sign-in me-1"></i>
+          Connexion
+        </button>
+
+        <button type="button"
+                class="btn btn-outline-danger"
+                [hidden]="!localAuthStatus"
+                (click)="signOut()">
+          <i class="fa fa-sign-out me-1"></i>
+          Déconnexion
+        </button>
+
       </div>
 
     </div>

@@ -1,7 +1,7 @@
 <div class="container">
 
   <!-- FORMULAIRE LOCATION -->
-  <div class="marge-haut">
+  <div class="mt-5">
     <div class="card shadow-lg">
       <div class="card-body">
 
@@ -9,32 +9,13 @@
 
           <div class="row g-3">
 
-            <!-- Date location -->
+            <!-- Montant total de la location -->
             <div class="col-12 col-md-4">
-              <label for="dateLocation" class="form-label">Date location *</label>
-              <input id="dateLocation" type="text" placeholder="aaaa-mm-jj" class="form-control" formControlName="dateLocation" [class.is-invalid]="isInvalid('dateLocation')">
-              <small class="text-danger" *ngIf="hasError('dateLocation', 'required')">La date de location est obligatoire.</small>
-              <small class="text-danger" *ngIf="hasError('dateLocation', 'invalidDateFormat')">{{ locationForm.get('dateLocation')?.getError('invalidDateFormat') }}</small>
-              <small class="text-danger" *ngIf="hasError('dateLocation', 'invalidDate')">{{ locationForm.get('dateLocation')?.getError('invalidDate') }}</small>
-            </div>
+              <label class="form-label">Montant total de la location</label>
 
-            <!-- Client -->
-            <div class="col-12 col-md-4">
-              <label for="idClient" class="form-label">Client *</label>
-              <select id="idClient" class="form-select" formControlName="idClient" [class.is-invalid]="isInvalid('idClient')">
-                <option value="">Sélectionner un client</option>
-                <option *ngFor="let c of clients" [ngValue]="c.id">
-                  {{ c.user.nom }} {{ c.user.prenom }}
-                </option>
-              </select>
-              <small class="text-danger" *ngIf="hasError('idClient', 'required')">Le client est obligatoire.</small>
-            </div>
-
-            <!-- Montant -->
-            <div class="col-12 col-md-4">
-              <label for="montantLocation" class="form-label">Montant *</label>
-              <input id="montantLocation" class="form-control" formControlName="montantLocation" [class.is-invalid]="isInvalid('montantLocation')">
-              <small class="text-danger" *ngIf="hasError('montantLocation', 'required')">Le montant total de la location est obligatoire.</small>
+              <div class="form-control bg-light fw-bold text-success">
+                {{ getMontantTotal() | number:'1.0-2' }} $
+              </div>
             </div>
 
             <!-- LISTE DES PANNEAUX DE LA LOCATION -->
@@ -149,9 +130,22 @@
 
           <div class="text-danger mt-3"><small>Les champs avec * sont obligatoires.</small></div>
 
-          <div class="mt-3">
-            <button type="submit" class="btn btn-outline-success" [disabled]="locationForm.invalid">Enregistrer</button>
-            <button type="button" class="btn btn-outline-danger ms-3" (click)="home()">Accueil</button>
+          <div class="d-flex gap-2 justify-content-end mt-3">
+
+            <button type="button"
+                    class="btn btn-outline-secondary"
+                    (click)="home()">
+              <i class="fa fa-home me-1"></i>
+              Accueil
+            </button>
+
+            <button type="submit"
+                    class="btn btn-success px-4"
+                    [disabled]="locationForm.invalid">
+              <i class="fa fa-save me-1"></i>
+              Enregistrer
+            </button>
+
           </div>
 
         </form>
