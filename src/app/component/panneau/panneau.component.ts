@@ -94,7 +94,9 @@ export class PanneauComponent {
   initPanneauForm(){
     this.getProprietaires()
     this.panneauForm = this.formBuilder.group({
-      emplacement: ['', [Validators.required]],
+      adresse: ['', [Validators.required]],
+      ville: ['', [Validators.required]],
+      idPays: ['', [Validators.required]],
       idProprietaire: ['', [Validators.required]]
     })
 
@@ -114,8 +116,8 @@ export class PanneauComponent {
   save(){
     const panneauFormValues = this.panneauForm.value
     const isUpdate = this.localIsUpdateProcess
-    const panneauObject = new PanneauDto(isUpdate ? this.idPanneau : null, panneauFormValues['emplacement'],
-      panneauFormValues['idProprietaire'])
+    const panneauObject = new PanneauDto(isUpdate ? this.idPanneau : null, panneauFormValues['adresse'],
+      panneauFormValues['ville'], panneauFormValues['idPanneau'], panneauFormValues['idProprietaire'])
 
     const panneauServiceCall = isUpdate ? this.panneauService.update(this.idPanneau, panneauObject) :
       this.panneauService.save(panneauObject)
@@ -141,7 +143,8 @@ export class PanneauComponent {
   update(idPanneau: any) {
     const selectedPanneau = this.panneaux.find(p => p.id === idPanneau)
     if (selectedPanneau) {
-      this.panneauForm.patchValue({ emplacement: selectedPanneau.emplacement, idProprietaire: selectedPanneau.proprietaire.id});
+      this.panneauForm.patchValue({ adresse: selectedPanneau.adresse, ville: selectedPanneau.ville,
+        idPays: selectedPanneau.pays.id, idProprietaire: selectedPanneau.proprietaire.id});
     }
     this.dataService.setIsUpdateProcess(true)
     this.navigationService.getIdPanneauFromRequestParam

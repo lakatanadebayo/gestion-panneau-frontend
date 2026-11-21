@@ -1,10 +1,9 @@
-import {Proprietaire} from "./Proprietaire";
-import {LocationPanneau} from "./LocationPanneau";
-
 export class PanneauDto {
   constructor(
     public id: any,
-    public emplacement: string,
+    public adresse: string,
+    public ville: string,
+    public idPays: any,
     public idProprietaire: any,
     /*public dateCreation: string,
     public codeUtilisateurCreation: string,

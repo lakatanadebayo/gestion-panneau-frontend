@@ -9,23 +9,35 @@
 
           <div class="row g-3">
 
-            <!-- Emplacement -->
+            <!-- Adresse -->
             <div class="col-12 col-md-4">
-              <label for="emplacement" class="form-label">Emplacement *</label>
-              <input id="emplacement" class="form-control" formControlName="emplacement" [class.is-invalid]="isInvalid('emplacement')">
-              <small class="text-danger" *ngIf="hasError('emplacement', 'required')">L'emplacement du panneau est obligatoire.</small>
+              <label for="adresse" class="form-label">Adresse *</label>
+              <input id="adresse" class="form-control" formControlName="adresse" [class.is-invalid]="isInvalid('emplacement')">
+              <small class="text-danger" *ngIf="hasError('adresse', 'required')">L'adresse du panneau est obligatoire.</small>
             </div>
 
-            <!-- Proprietaire -->
+            <!-- Ville -->
             <div class="col-12 col-md-4">
-              <label for="idProprietaire" class="form-label">Proprietaire *</label>
-              <select id="idProprietaire" class="form-select" formControlName="idProprietaire" [class.is-invalid]="isInvalid('idProprietaire')">
-                <option value="">Sélectionner un propriétaire</option>
-                <option *ngFor="let p of proprietaires" [ngValue]="p.id">
-                  {{ p.user.nom }} {{ p.user.prenom }}
+              <label for="ville" class="form-label">Ville *</label>
+              <input id="ville" class="form-control" formControlName="ville" [class.is-invalid]="isInvalid('emplacement')">
+              <small class="text-danger" *ngIf="hasError('ville', 'required')">La ville du panneau est obligatoire.</small>
+            </div>
+
+            <!-- Pays -->
+            <div class="col-12 col-md-6">
+              <label for="idPays" class="form-label">Pays *</label>
+              <select id="idPays" class="form-select"
+                      formControlName="idPays"
+                      [class.is-invalid]="isInvalid('idPays')">
+                <option value="">Sélectionner un pays</option>
+                <option *ngFor="let p of pays" [ngValue]="p.id">
+                  {{ p.nom }}
                 </option>
               </select>
-              <small class="text-danger" *ngIf="hasError('idProprietaire', 'required')">Le propriétaire du panneau est obligatoire.</small>
+              <small class="text-danger"
+                     *ngIf="hasError('idPays', 'required')">
+                Le pays est obligatoire.
+              </small>
             </div>
 
           </div>

@@ -1,10 +1,12 @@
 import {Proprietaire} from "./Proprietaire";
-import {LocationPanneau} from "./LocationPanneau";
+import {Pays} from "./Pays";
 
 export class Panneau {
   constructor(
     public id: any,
-    public emplacement: string,
+    public adresse: string,
+    public ville: string,
+    public pays: Pays,
     public proprietaire: Proprietaire,
     public dateCreation: string,
     public codeUtilisateurCreation: string,

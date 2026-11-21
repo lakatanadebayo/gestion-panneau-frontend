@@ -15,8 +15,10 @@
         <thead>
         <tr>
           <th>N°</th>
-          <th>Emplacement</th>
-          <th (click)="sortBy('nom')" role="button">Nom & Prénom</th>
+          <th>Adresse</th>
+          <th>Ville</th>
+          <th>Pays</th>
+          <th (click)="sortBy('nom')" role="button">Propriétaire</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -26,6 +28,9 @@
           paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: count }">
 
           <td>{{ p.idPanneau }}</td>
+          <td>{{ p.adresse }}</td>
+          <td>{{ p.ville }}</td>
+          <td>{{ p.pays.nom }}</td>
           <td>{{ p.proprietaire.user.nom }} {{ p.proprietaire.user.prenom }}</td>
 
           <td>
